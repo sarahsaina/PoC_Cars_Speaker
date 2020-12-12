@@ -44,31 +44,35 @@ while True:   #infinite loop
                 print('temperature :')
                 print(temp)
                 if (date.hour > 22):    #date.hour return the current time
-                        print("Evening playlist (after 10vp.m.)")
+                        print("Evening playlist (after 10 p.m.)")
                         pygame.mixer.music.load(playlist1.pop())  #get the first track from the playlist
                         pygame.mixer.music.queue(playlist1.pop())    #queue the 2nd song
+                        pygame.mixer.music.queue(playlist1.pop())    #queue the 3rd song
                         pygame.mixer.music.set_endevent(pygame.USEREVENT)  #setup the end track even
                         pygame.mixer.music.play()  #play the music
-                        pygame.event.wait()
+                        
                 elif (lumi<100 and temp<15 ):  
                         print("Winter playlist (brightness<100 & temperature<15)")
                         pygame.mixer.music.load(playlist2.pop())
+                        pygame.mixer.music.queue(playlist2.pop())
                         pygame.mixer.music.set_endevent(pygame.USEREVENT)
-                        pygame.mixer.music.play()       #joue le fichier
-                        pygame.event.wait()
+                        pygame.mixer.music.play()      
+                        
                 elif (lumi>100 and temp>15):    
                         print("Summer playlist (brightness>100 & temperature>15)")
                         pygame.mixer.music.load(playlist3.pop())
+                        pygame.mixer.music.queue(playlist3.pop())
                         pygame.mixer.music.set_endevent(pygame.USEREVENT)
                         pygame.mixer.music.play()
-                        pygame.event.wait()
+                        
                 else: #playlist 4
                         print("Playlist Regular")
                         pygame.mixer.music.load(playlist4.pop())
+                        pygame.mixer.music.queue(playlist4.pop())
                         pygame.mixer.music.set_endevent(pygame.USEREVENT)
                         pygame.mixer.music.play()
-                        pygame.event.wait()
+                        
                 for event in pygame.event.get():
                         if event.type == pygame.USEREVENT:    # A track has ended
-                                if len ( playlist ) > 0:       # If there are more tracks in the queue...
-                                         pygame.mixer.music.queue ( playlist.pop() ) 
+                                if (len(playlist1) > 0 or len(playlist2) > 0 or len(playlist3) > 0 or len(playlist4) > 0):     # If there are more tracks in the queue...
+                                         pygame.mixer.music.queue ( playlist.pop() )   #queue a sound file to follow the current 
